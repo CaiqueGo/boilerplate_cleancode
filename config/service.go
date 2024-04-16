@@ -1,9 +1,11 @@
 package config
 
-import usercreate "github.com/boilerplate_cleancode/user_create"
+import (
+	usercreate "github.com/boilerplate_cleancode/user_create"
+)
 
 func (ref Config) UserCreateService() *usercreate.ServiceImpl {
-	return usercreate.NewService(ref.UserCreateRepository())
+	return usercreate.NewService(ref.Log, ref.UserCreateRepository())
 }
 
 func (ref Config) UserCreateRepository() *usercreate.RepositoryImpl {
@@ -11,5 +13,5 @@ func (ref Config) UserCreateRepository() *usercreate.RepositoryImpl {
 }
 
 func (ref Config) UserCreateHandlerHttp() *usercreate.HandlerHttp {
-	return usercreate.NewHandlerHttp(ref.UserCreateService())
+	return usercreate.NewHandlerHttp(ref.Log, ref.UserCreateService())
 }
